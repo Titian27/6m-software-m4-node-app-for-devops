@@ -37,13 +37,22 @@ build-and-push:
           image: Titian27/6m-software-m4-node-app-for-devops
           tag: <<pipeline.git.tag>>
 
-workflows:
+workflows: 
   simple_workflow:
     jobs:
-      - build
-      - test:
+      - build:
+          filters:
+            branches:
+              only: main
+      - test: 
           requires:
             - build
-      - deploy:
-      requires: 
-      -build-and-push
+          filters:
+            branches: 
+              only: main
+      - build-and-push: #This should run only if a tag is pushed, not if a branch is pushed.
+          filters:
+            tags:
+              only: /^v.*/ #This only considers tags starting with "v". e.g. v1.0.3
+            branches:
+              ignore: /.*/  #This ignores all branches
