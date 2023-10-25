@@ -30,10 +30,10 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: Titian27/6m-software-m4-node-app-for-devops
+          image: Titian27/education-space
           tag: <<pipeline.git.tag>>
       - docker/push:
-          image: Titian27/6m-software-m4-node-app-for-devops
+          image: Titian27/education-space
           tag: <<pipeline.git.tag>>
 
 workflows: 
