@@ -1,12 +1,13 @@
 version: 2.1
-orbs:
+orbs: 
   node: circleci/node@5.0.1
-jobs:
-  build:
-    docker:
+  docker: circleci/docker@2.1.4 
+jobs: 
+  build: 
+    docker: 
       - image: cimg/node:16.10
     steps:
-      - checkout
+      - checkout 
       - node/install-packages:
           pkg-manager: npm
       - run: |
@@ -22,14 +23,14 @@ jobs:
       - run: |
           echo "Running tests..."
           npm run test
-build-and-push:
-    executor: docker/docker
+  build-and-push:
+    executor: docker/docker 
     steps:
-      - setup_remote_docker
+      - setup_remote_docker 
       - checkout
       - docker/check
       - docker/build:
-          image: Titian27/6m-software-m4-node-app-for-devops # update to own docker
+          image: Titian27/6m-software-m4-node-app-for-devops
           tag: <<pipeline.git.tag>>
       - docker/push:
           image: Titian27/6m-software-m4-node-app-for-devops
