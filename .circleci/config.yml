@@ -23,10 +23,24 @@ jobs:
           echo "Running tests..."
           npm run test
 
+
+build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: Titian27/6m-software-m4-node-app-for-devops # update to own docker
+          tag: <<pipeline.git.tag>>
+      - docker/push:
+          image: Titian27/6m-software-m4-node-app-for-devops
+          tag: <<pipeline.git.tag>>
+
 workflows:
   simple_workflow:
     jobs:
       - build
       - test:
           requires:
-            - build 
+            - build and push
