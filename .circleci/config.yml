@@ -42,7 +42,6 @@ jobs:
        - image: cimg/node:16.10
       steps:
        - setup_remote_docker      
-       - heroku/install
        - checkout
 
 workflows:
